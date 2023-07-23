@@ -21,6 +21,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.1'
+	testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:1.0.1'
 }
 
 tasks.named('test') {
