@@ -2,6 +2,7 @@ package com.example.hexagonal.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Table(name = "products")
 @Getter
 @Setter
+@EqualsAndHashCode(of = {"id"})
 public class Product implements Serializable {
 
   private static final long serialVersionUID = 1L;

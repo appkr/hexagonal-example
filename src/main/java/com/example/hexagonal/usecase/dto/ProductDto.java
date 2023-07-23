@@ -1,4 +1,4 @@
-package com.example.hexagonal.port.dto;
+package com.example.hexagonal.usecase.dto;
 
 import lombok.Builder;
 import lombok.Data;

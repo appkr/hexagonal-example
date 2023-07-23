@@ -1,4 +1,4 @@
-package com.example.hexagonal.port.dto;
+package com.example.hexagonal.usecase.dto;
 
 import static com.example.hexagonal.domain.ModelFixture.DEFAULT_NAME;
 import static com.example.hexagonal.domain.ModelFixture.DEFAULT_STOCK;

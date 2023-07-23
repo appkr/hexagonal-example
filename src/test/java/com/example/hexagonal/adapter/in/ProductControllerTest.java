@@ -1,16 +1,24 @@
 package com.example.hexagonal.adapter.in;
 
 import static com.example.hexagonal.domain.ModelFixture.DEFAULT_ID;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.hexagonal.port.dto.DtoFixture;
+import com.example.hexagonal.domain.ModelFixture;
+import com.example.hexagonal.usecase.dto.DtoFixture;
+import com.example.hexagonal.usecase.dto.DtoMapper;
+import com.example.hexagonal.usecase.dto.ProductDto;
+import com.example.hexagonal.port.in.ProductPort;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -21,8 +29,15 @@ class ProductControllerTest {
 
   MockMvc mvc;
 
+  @MockBean ProductPort mockUsecase;
+  @Autowired DtoMapper dtoMapper;
+
   @Test
   void getProduct() throws Exception {
+    Mockito
+        .when(mockUsecase.getProduct(anyLong()))
+        .thenReturn(ModelFixture.aProduct());
+
     mvc
         .perform(get("/api/products/{productId}", DEFAULT_ID)
             .accept("application/json")
@@ -33,7 +48,13 @@ class ProductControllerTest {
 
   @Test
   void updateProduct() throws Exception {
-    final byte[] content = mapper.writeValueAsBytes(DtoFixture.aProductDtoOf(DEFAULT_ID));
+    final ProductDto dto = DtoFixture.aProductDtoOf(DEFAULT_ID);
+
+    Mockito
+        .when(mockUsecase.updateProduct(DEFAULT_ID, dto))
+        .thenReturn(ModelFixture.aProduct());
+
+    final byte[] content = mapper.writeValueAsBytes(dto);
 
     mvc
         .perform(put("/api/products/{productId}", DEFAULT_ID)
@@ -48,7 +69,7 @@ class ProductControllerTest {
   @BeforeEach
   void setup() {
     this.mvc = MockMvcBuilders
-        .standaloneSetup(new ProductController())
+        .standaloneSetup(new ProductController(mockUsecase, dtoMapper))
         .build();
   }
 }
