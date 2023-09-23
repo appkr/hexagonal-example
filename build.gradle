@@ -1,30 +1,36 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.2'
-	id 'io.spring.dependency-management' version '1.1.2'
-	id 'io.freefair.lombok' version '8.1.0'
+	id 'org.springframework.boot' version '3.1.2' apply false
+	id 'io.spring.dependency-management' version '1.1.2' apply false
+	id 'io.freefair.lombok' version '8.1.0' apply false
+	// for kotlin
+	id 'org.jetbrains.kotlin.jvm' version '1.9.20-Beta2' apply false
+	id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.20-Beta2' apply false     // JPA Entity에 기본 생성자가 없어서 오류가 날 경우
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.20-Beta2' apply false  // @Transactional 등 프록시 클래스에서 상속 불가로 오류가 나는 경우
+	id 'org.jetbrains.kotlin.plugin.allopen' version '1.9.20-Beta2' apply false // 모든 클래스를 상속 가능하도록 한다
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-
-java {
-	sourceCompatibility = '17'
+wrapper {
+	gradleVersion = '8.1.1'
 }
 
-repositories {
-	mavenCentral()
-}
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.h2database:h2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.1'
-	testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:1.0.1'
-}
+	group = 'com.example'
+	version = '0.0.1-SNAPSHOT'
 
-tasks.named('test') {
-	useJUnitPlatform()
+	java {
+		sourceCompatibility = '17'
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	test {
+		useJUnitPlatform()
+	}
 }

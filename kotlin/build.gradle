@@ -1,0 +1,37 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.kotlin.plugin.jpa'
+    id 'org.jetbrains.kotlin.plugin.spring'
+    id 'org.jetbrains.kotlin.plugin.allopen'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.1'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5-engine:1.0.1'
+    // for kotlin only
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'                       // NoClassDefFoundError: kotlin/reflect/full/kClasses
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2' // HTTP로 제출한 JSON 역직렬화 실패할 경우
+}
+
+allOpen {
+    annotation('javax.persistence.Entity')
+    annotation('javax.persistence.MappedSuperClass')
+    annotation('javax.persistence.Embeddable')
+}
+
+//compileKotlin {
+//    kotlinOptions {
+//        jvmTarget = '17'
+//    }
+//}
+//
+//compileTestKotlin {
+//    kotlinOptions {
+//        jvmTarget = '17'
+//    }
+//}

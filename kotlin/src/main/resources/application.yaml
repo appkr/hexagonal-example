@@ -1,0 +1,33 @@
+server.port: 8081
+
+spring:
+  application:
+    name: hexagonal
+
+  profiles:
+    active: local
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:hexagonal;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+
+  jpa:
+    database: H2
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect.storage_engine: innodb
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+
+  sql:
+    init:
+      schema-locations: classpath*:schema.sql
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+    problemdetails:
+      enabled: true
