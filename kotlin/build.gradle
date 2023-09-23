@@ -16,6 +16,11 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'                       // NoClassDefFoundError: kotlin/reflect/full/kClasses
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2' // HTTP로 제출한 JSON 역직렬화 실패할 경우
+    implementation 'io.github.oshai:kotlin-logging-jvm:5.1.0'
+    testImplementation 'io.kotest:kotest-runner-junit5:5.7.2'
+    testImplementation 'io.kotest:kotest-assertions-core:5.7.2'
+    testImplementation 'io.kotest.extensions:kotest-extensions-spring:1.1.3'
+    testImplementation 'io.mockk:mockk:1.13.8'
 }
 
 allOpen {
@@ -23,15 +28,3 @@ allOpen {
     annotation('javax.persistence.MappedSuperClass')
     annotation('javax.persistence.Embeddable')
 }
-
-//compileKotlin {
-//    kotlinOptions {
-//        jvmTarget = '17'
-//    }
-//}
-//
-//compileTestKotlin {
-//    kotlinOptions {
-//        jvmTarget = '17'
-//    }
-//}
