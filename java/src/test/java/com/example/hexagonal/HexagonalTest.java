@@ -17,10 +17,10 @@ public class HexagonalTest {
   public void domainShouldNotDependOnAnyOtherPackages() {
     noClasses()
         .that()
-        .resideInAnyPackage("com.example.hexagonal.domain..")
+        .resideInAnyPackage("com.example.hexagonal.application.domain..")
         .should()
         .dependOnClassesThat()
-        .resideInAnyPackage("com.example.hexagonal.usecase..", "com.example.hexagonal.port..", "com.example.hexagonal.adapter..")
+        .resideInAnyPackage("com.example.hexagonal.application.port..", "com.example.hexagonal.application.usecase..")
         .because("Domain should not depend on any other packages")
         .check(importedClasses);
   }
@@ -29,7 +29,7 @@ public class HexagonalTest {
   public void usecaseAndPortShouldNotDependOnAdapter() {
     noClasses()
         .that()
-        .resideInAnyPackage("com.example.hexagonal.usecase..", "com.example.hexagonal.port..")
+        .resideInAnyPackage("com.example.hexagonal.application..")
         .should()
         .dependOnClassesThat()
         .resideInAnyPackage("com.example.hexagonal.adapter..")

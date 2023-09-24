@@ -16,25 +16,30 @@
 
 ## 구현
 
-- 주의: kotlin에서는 `in`, `out이` 예약어라 `driving`, `driven`이란 용어를 사용함
+- 주의: kotlin에서는 `in`, `out` 예약어임에 유의할 것
 
 ```shell
-$ tree src/main/java/com/example/hexagonal
-src/main/java/com/example/hexagonal
+$ tree java/src/main/java/com/example/hexagonal
 ├── HexagonalExampleApplication.java
 ├── adapter
-│   ├── in
+│   ├── inbound
 │   │   └── ProductController.java
-│   └── out
+│   └── outbound
 │       └── HypotheticalMessageSender.java
-├── domain
-│   └── Product.java
-├── port
-│   ├── in
-│   │   └── ProductPort.java
-│   └── out
-│       ├── MessagePort.java
-│       └── ProductJpaRepository.java
-└── usecase
-    └──  ProductService.java
+└── application
+    ├── domain
+    │   ├── ModelFixture.java
+    │   └── Product.java
+    ├── port
+    │   ├── dto
+    │   │   ├── DtoFixture.java
+    │   │   ├── DtoMapper.java
+    │   │   └── ProductDto.java
+    │   ├── inbound
+    │   │   └── ProductPort.java
+    │   └── outbound
+    │       ├── MessagePort.java
+    │       └── ProductRepository.java
+    └── usecase
+        └── ProductService.java
 ```

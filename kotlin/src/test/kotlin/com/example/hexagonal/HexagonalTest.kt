@@ -11,13 +11,12 @@ class HexagonalTest {
         ArchRuleDefinition
             .noClasses()
             .that()
-            .resideInAnyPackage("com.example.hexagonal.domain..")
+            .resideInAnyPackage("com.example.hexagonal.application.domain..")
             .should()
             .dependOnClassesThat()
             .resideInAnyPackage(
-                "com.example.hexagonal.usecase..",
-                "com.example.hexagonal.port..",
-                "com.example.hexagonal.adapter..",
+                "com.example.hexagonal.application.port..",
+                "com.example.hexagonal.application.usecase..",
             )
             .because("Domain should not depend on any other packages")
             .check(importedClasses)
@@ -28,7 +27,7 @@ class HexagonalTest {
         ArchRuleDefinition
             .noClasses()
             .that()
-            .resideInAnyPackage("com.example.hexagonal.usecase..", "com.example.hexagonal.port..")
+            .resideInAnyPackage("com.example.hexagonal.application..")
             .should()
             .dependOnClassesThat()
             .resideInAnyPackage("com.example.hexagonal.adapter..")

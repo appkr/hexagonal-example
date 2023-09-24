@@ -1,8 +1,8 @@
 package com.example.hexagonal
 
-import com.example.hexagonal.port.driven.MessagePort
-import com.example.hexagonal.port.driven.ProductJpaRepository
-import com.example.hexagonal.port.driving.ProductPort
+import com.example.hexagonal.application.port.outbound.MessagePort
+import com.example.hexagonal.application.port.outbound.ProductRepository
+import com.example.hexagonal.application.port.inbound.ProductPort
 import io.mockk.mockk
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,7 +16,7 @@ import org.springframework.test.context.ActiveProfiles
 class TestConfig {
     @Bean
     @Primary
-    fun mockProductRepository(): ProductJpaRepository = mockk()
+    fun mockProductRepository(): ProductRepository = mockk()
 
     @Bean
     @Primary
