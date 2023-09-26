@@ -3,7 +3,7 @@ package com.example.hexagonal.adapter.inbound;
 import com.example.hexagonal.application.domain.Product;
 import com.example.hexagonal.application.port.dto.DtoMapper;
 import com.example.hexagonal.application.port.dto.ProductDto;
-import com.example.hexagonal.application.port.inbound.ProductPort;
+import com.example.hexagonal.application.port.inbound.ProductUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProductController {
 
-  final ProductPort productPort;
+  final ProductUsecase productPort;
   final DtoMapper dtoMapper;
 
   @GetMapping("/api/products/{productId}")

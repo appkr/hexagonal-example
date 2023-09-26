@@ -1,6 +1,6 @@
 package com.example.hexagonal.adapter.inbound
 
-import com.example.hexagonal.application.port.inbound.ProductPort
+import com.example.hexagonal.application.port.inbound.ProductUsecase
 import com.example.hexagonal.application.port.dto.DtoMapper
 import com.example.hexagonal.application.port.dto.ProductDto
 import org.springframework.http.ResponseEntity
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ProductController(
-    val productPort: ProductPort,
+    val productPort: ProductUsecase,
     val dtoMapper: DtoMapper,
 ) {
     @GetMapping("/api/products/{productId}")

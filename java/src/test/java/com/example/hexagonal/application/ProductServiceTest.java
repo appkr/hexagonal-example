@@ -1,4 +1,4 @@
-package com.example.hexagonal.application.usecase;
+package com.example.hexagonal.application;
 
 import static com.example.hexagonal.application.domain.ModelFixture.DEFAULT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 
+import com.example.hexagonal.application.ProductService;
 import com.example.hexagonal.application.domain.ModelFixture;
 import com.example.hexagonal.application.domain.Product;
 import com.example.hexagonal.application.port.outbound.ProductRepository;

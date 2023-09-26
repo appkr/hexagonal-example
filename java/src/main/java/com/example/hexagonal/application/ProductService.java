@@ -1,9 +1,9 @@
-package com.example.hexagonal.application.usecase;
+package com.example.hexagonal.application;
 
 import com.example.hexagonal.application.port.outbound.MessagePort;
 import com.example.hexagonal.application.domain.Product;
 import com.example.hexagonal.application.port.dto.ProductDto;
-import com.example.hexagonal.application.port.inbound.ProductPort;
+import com.example.hexagonal.application.port.inbound.ProductUsecase;
 import com.example.hexagonal.application.port.outbound.ProductRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ProductService implements ProductPort {
+public class ProductService implements ProductUsecase {
 
   final ProductRepository repository;
   final MessagePort messagePort;

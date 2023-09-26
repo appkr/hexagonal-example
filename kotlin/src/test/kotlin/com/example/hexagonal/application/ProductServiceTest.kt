@@ -1,6 +1,7 @@
-package com.example.hexagonal.application.usecase
+package com.example.hexagonal.application
 
 import com.example.hexagonal.TestConfig
+import com.example.hexagonal.application.ProductService
 import com.example.hexagonal.application.domain.Product
 import com.example.hexagonal.application.port.dto.ProductDto
 import com.example.hexagonal.application.port.outbound.MessagePort

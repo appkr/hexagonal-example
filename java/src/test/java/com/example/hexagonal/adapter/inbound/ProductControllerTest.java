@@ -11,7 +11,7 @@ import com.example.hexagonal.application.domain.ModelFixture;
 import com.example.hexagonal.application.port.dto.DtoFixture;
 import com.example.hexagonal.application.port.dto.DtoMapper;
 import com.example.hexagonal.application.port.dto.ProductDto;
-import com.example.hexagonal.application.port.inbound.ProductPort;
+import com.example.hexagonal.application.port.inbound.ProductUsecase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ class ProductControllerTest {
 
   MockMvc mvc;
 
-  @MockBean ProductPort mockUsecase;
+  @MockBean ProductUsecase mockUsecase;
   @Autowired DtoMapper dtoMapper;
 
   @Test

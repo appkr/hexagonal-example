@@ -1,18 +1,19 @@
-package com.example.hexagonal.application.usecase
+package com.example.hexagonal.application
 
 import com.example.hexagonal.application.domain.Product
 import com.example.hexagonal.application.port.outbound.MessagePort
 import com.example.hexagonal.application.port.outbound.ProductRepository
-import com.example.hexagonal.application.port.inbound.ProductPort
+import com.example.hexagonal.application.port.inbound.ProductUsecase
 import com.example.hexagonal.application.port.dto.ProductDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 class ProductService(
     val repository: ProductRepository,
     val messagePort: MessagePort,
-) : ProductPort {
+) : ProductUsecase {
     @Transactional(readOnly = true)
     override fun getProduct(productId: Long): Product {
         return findProductBy(productId)

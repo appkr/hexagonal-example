@@ -3,7 +3,7 @@ package com.example.hexagonal.adapter.inbound
 import com.example.hexagonal.TestConfig
 import com.example.hexagonal.application.domain.Product
 import com.example.hexagonal.application.port.dto.DtoMapper
-import com.example.hexagonal.application.port.inbound.ProductPort
+import com.example.hexagonal.application.port.inbound.ProductUsecase
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.extensions.spring.SpringExtension
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 @Import(TestConfig::class, DtoMapper::class)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 internal open class ProductControllerTest(
-    val mockUsecase: ProductPort,
+    val mockUsecase: ProductUsecase,
     val dtoMapper: DtoMapper,
 ) : DescribeSpec() {
     override fun extensions() = listOf(SpringExtension)
