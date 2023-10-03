@@ -1,0 +1,55 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+ext {
+    isReleaseVersion = !(project.version =~ /-SNAPSHOT$/)
+    isNeedSign = project.hasProperty('signing.gnupg.keyName')
+    archivesBaseName = 'hexagonal-example-typescript'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set('sources')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifactId = archivesBaseName
+        }
+
+        versionMapping {
+            usage('java-api') {
+                fromResolutionOf('runtimeClasspath')
+            }
+            usage('java-runtime') {
+                fromResolutionResult()
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            if (project.ext.isReleaseVersion) {
+                url 'release repository url here'
+            } else {
+                url 'snapshot repository url here'
+            }
+            credentials {
+                username System.getenv('NEXUS_USER')
+                password System.getenv('NEXUS_PASS')
+            }
+        }
+    }
+
+    tasks.withType(Sign) {
+        onlyIf { project.ext.isNeedSign }
+    }
+
+    signing {
+        useGpgCmd()
+        sign publishing.publications.mavenJava
+    }
+}
