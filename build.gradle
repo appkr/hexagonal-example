@@ -59,6 +59,40 @@ openApiGenerate {
 	validateSpec = true
 }
 
+task typescriptApiClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+	generatorName = 'typescript-axios'
+	inputSpec = "${rootDir}/apispec/spec.yaml"
+	outputDir = "${buildDir}/typescript-client"
+	validateSpec = true
+}
+
+task kotlinApiClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = 'kotlin'
+	inputSpec = "${rootDir}/apispec/spec.yaml"
+	outputDir = "${buildDir}/kotlin-client"
+	apiPackage = 'com.example.hexagonal.api'
+	modelPackage = 'com.example.hexagonal.api.model'
+	modelNameSuffix = ''
+	apiFilesConstrainedTo = ['']
+	modelFilesConstrainedTo = ['']
+	supportingFilesConstrainedTo = ['ApiUtil.kt']
+	configOptions = [
+			title                  : 'hexagonal-example',
+			useTags                : 'true',
+			dateLibrary            : 'java8',
+			java8                  : 'true',
+			hideGenerationTimestamp: 'true',
+			useSpringBoot3         : 'true',
+			useJakartaEe           : 'true',
+			serializableModel      : 'true',
+			serializationLibrary   : 'jackson',
+			bigDecimalAsString     : 'true',
+			useRuntimeException    : 'true',
+			library                : 'jvm-retrofit2'
+	]
+	validateSpec = true
+}
+
 compileJava.dependsOn('openApiGenerate')
 
 task redoc(type: Exec) {
