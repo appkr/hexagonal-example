@@ -1,0 +1,105 @@
+openapi: '3.0.3'
+
+info:
+  title: 'hexagonal-example'
+  version: '0.0.1'
+
+servers:
+  - url: http://localhost:8080
+    description: local
+  - url: https://apigateway.{env}.example.com
+    description: remote
+    variables:
+      env:
+        default: dev
+        description: dev, qa1, qa2
+
+paths:
+
+  /api/products/{productId}:
+    parameters:
+      - $ref: '#/components/parameters/ProductIdParam'
+
+    get:
+      description: |
+        - 제품을 조회합니다
+      operationId: getProduct
+      tags:
+        - Product
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: 'common.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: 'common.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: 'common.yaml#/components/responses/Forbidden'
+        '500':
+          $ref: 'common.yaml#/components/responses/ServerError'
+
+    put:
+      description: |
+        - 제품의 속성을 변경합니다
+      operationId: updateProduct
+      tags:
+        - Product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: 'common.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: 'common.yaml#/components/responses/Unauthorized'
+        '403':
+          $ref: 'common.yaml#/components/responses/Forbidden'
+        '500':
+          $ref: 'common.yaml#/components/responses/ServerError'
+
+components:
+  schemas:
+    ProductId:
+      $ref: 'common.yaml#/components/schemas/LongType'
+
+    #----------------------------------------
+    # API Model
+    #----------------------------------------
+
+    Product:
+      type: object
+      properties:
+        productId:
+          $ref: '#/components/schemas/ProductId'
+        name:
+          $ref: 'common.yaml#/components/schemas/StringType'
+        stock:
+          $ref: 'common.yaml#/components/schemas/IntType'
+        dummyArray:
+          type: array
+          items:
+            $ref: 'common.yaml#/components/schemas/DummyCode'
+
+  parameters:
+    ProductIdParam:
+      in: path
+      name: productId
+      description: 제품 식별자
+      required: true
+      schema:
+        $ref: '#/components/schemas/ProductId'
+
+security:
+  - example-oauth2: [ ]

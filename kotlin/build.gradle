@@ -5,9 +5,12 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.allopen'
 }
 
+//apply from: '../gradle/deploy.gradle'
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.1'
@@ -21,10 +24,22 @@ dependencies {
     testImplementation 'io.kotest:kotest-assertions-core:5.7.2'
     testImplementation 'io.kotest.extensions:kotest-extensions-spring:1.1.3'
     testImplementation 'io.mockk:mockk:1.13.8'
+    // open api support
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
+    // OpenApi Bug workaround @see https://github.com/OpenAPITools/openapi-generator/issues/3668
+    // For spring-boot 3 @see https://github.com/OpenAPITools/openapi-generator/pull/14402/files#diff-a69d7ddda55ae7f9f544bf415c96590ff4bfe3ecd52b49e519842eaac2b4f045L131
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.9'
 }
 
 allOpen {
     annotation('javax.persistence.Entity')
     annotation('javax.persistence.MappedSuperClass')
     annotation('javax.persistence.Embeddable')
+}
+
+sourceSets {
+    main.java.srcDir file("${rootProject.buildDir.path}/openapi/src/main/kotlin")
 }

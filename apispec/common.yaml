@@ -1,0 +1,184 @@
+openapi: '3.0.3'
+
+info:
+  title: common
+  version: n/a
+
+paths: {}
+
+components:
+  schemas:
+    IntType:
+      type: integer
+      format: int32
+      example: 1
+
+    LongType:
+      type: integer
+      format: int64
+      example: 1
+
+    DateTime:
+      type: string
+      format: date-time
+      example: '2018-12-01T10:00:00Z'
+
+    NullableDateTime:
+      type: string
+      format: date-time
+      nullable: true
+      example: '2018-12-01T10:00:00Z'
+
+    Date:
+      type: string
+      format: date
+      example: '2018-12-01'
+
+    DateRange:
+      type: object
+      properties:
+        from:
+          $ref: '#/components/schemas/Date'
+        to:
+          $ref: '#/components/schemas/Date'
+
+    StringType:
+      type: string
+      example: 'foo'
+
+    UUID:
+      type: string
+      format: uuid
+      example: c9106593-2d6c-40eb-8504-66b0ef41ad2d, 00000000-0000-0000-0000-000000000000
+
+    NullableUUID:
+      type: string
+      format: uuid
+      nullable: true
+      example: c9106593-2d6c-40eb-8504-66b0ef41ad2d, 00000000-0000-0000-0000-000000000000
+
+    # https://stackoverflow.com/q/19178820
+    # Spring correctly interprets ?bar=true, ?bar=1, or ?bar=yes as being true, and ?bar=false, ?bar=0, or ?bar=no as being false.
+    BooleanType:
+      type: boolean
+
+    DummyCode:
+      description: |
+        - TYPE_A:산
+        - TYPE_B:지하
+      type: string
+      enum:
+        - TYPE_A
+        - TYPE_B
+      default: null
+      example: TYPE_A
+
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+          example: hexagonal/constraint-violation
+        title:
+          type: string
+          example: 제출한 요청이 유효하지 않습니다
+        detail:
+          type: string
+        fieldErrors:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/FieldError'
+
+    FieldError:
+      type: object
+      properties:
+        field:
+          type: string
+          example: updateProduct.ProductDto.productId
+        message:
+          type: string
+          example:
+            - NotNull
+            - Size
+            - 요청이 유효하지 않습니다
+
+    Page:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int32
+          default: 50
+          example: 50
+        totalElements:
+          type: integer
+          format: int64
+          example: 100
+        totalPages:
+          type: integer
+          format: int32
+          example: 2
+        number:
+          type: integer
+          format: int32
+          default: 1
+          example: 1
+
+  responses:
+    Created:
+      description: Created
+
+    Accepted:
+      description: Accepted
+
+    NoContent:
+      description: No Content
+
+    EmptyContent:
+      description: No Content
+      content:
+        application/json: { }
+
+    BadRequest:
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    NotFound:
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    Conflict:
+      description: Conflict
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'

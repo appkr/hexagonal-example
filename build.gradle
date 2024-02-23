@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.1.2' apply false
 	id 'io.spring.dependency-management' version '1.1.2' apply false
 	id 'io.freefair.lombok' version '8.1.0' apply false
+	id 'org.openapi.generator' version '6.4.0'
 	// for kotlin
 	id 'org.jetbrains.kotlin.jvm' version '1.9.20-Beta2' apply false
 	id 'org.jetbrains.kotlin.plugin.jpa' version '1.9.20-Beta2' apply false     // JPA Entity에 기본 생성자가 없어서 오류가 날 경우
@@ -33,4 +34,68 @@ subprojects {
 	test {
 		useJUnitPlatform()
 	}
+}
+
+openApiGenerate {
+	generatorName = 'kotlin-spring'
+	inputSpec = "${rootDir}/apispec/spec.yaml"
+	outputDir = "${buildDir}/openapi"
+	apiPackage = 'com.example.hexagonal.api'
+	modelPackage = 'com.example.hexagonal.api.model'
+	modelNameSuffix = 'Dto'
+	apiFilesConstrainedTo = ['']
+	modelFilesConstrainedTo = ['']
+	supportingFilesConstrainedTo = ['ApiUtil.kt']
+	configOptions = [
+			delegatePattern        : 'true',
+			title                  : 'hexagonal-example',
+			useTags                : 'true',
+			dateLibrary            : 'java8',
+			java8                  : 'true',
+			hideGenerationTimestamp: 'true',
+			useSpringBoot3         : 'true',
+			useJakartaEe           : 'true'
+	]
+	validateSpec = true
+}
+
+task typescriptApiClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+	generatorName = 'typescript-axios'
+	inputSpec = "${rootDir}/apispec/spec.yaml"
+	outputDir = "${buildDir}/typescript-client"
+	validateSpec = true
+}
+
+task kotlinApiClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask){
+	generatorName = 'kotlin'
+	inputSpec = "${rootDir}/apispec/spec.yaml"
+	outputDir = "${buildDir}/kotlin-client"
+	apiPackage = 'com.example.hexagonal.api'
+	modelPackage = 'com.example.hexagonal.api.model'
+	modelNameSuffix = ''
+	apiFilesConstrainedTo = ['']
+	modelFilesConstrainedTo = ['']
+	supportingFilesConstrainedTo = ['ApiUtil.kt']
+	configOptions = [
+			title                  : 'hexagonal-example',
+			useTags                : 'true',
+			dateLibrary            : 'java8',
+			java8                  : 'true',
+			hideGenerationTimestamp: 'true',
+			useSpringBoot3         : 'true',
+			useJakartaEe           : 'true',
+			serializableModel      : 'true',
+			serializationLibrary   : 'jackson',
+			bigDecimalAsString     : 'true',
+			useRuntimeException    : 'true',
+			library                : 'jvm-retrofit2'
+	]
+	validateSpec = true
+}
+
+compileJava.dependsOn('openApiGenerate')
+
+task redoc(type: Exec) {
+	// For this to work correctly, `yarn global add redoc`
+	commandLine 'npx', 'redoc-cli', 'bundle', "${rootDir}/apispec/spec.yaml", '-o', "${buildDir}/redoc.html"
 }
