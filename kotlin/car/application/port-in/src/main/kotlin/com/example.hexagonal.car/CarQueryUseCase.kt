@@ -4,5 +4,5 @@ interface CarQueryUseCase {
     /**
      * @throws CarNotFoundException
      */
-    fun getByLicensePlateNumber(licensePlateNumber: String): CarModel
+    fun getByLicensePlateNumber(licensePlateNumber: LicensePlateNumber): CarModel
 }

@@ -2,7 +2,7 @@ package com.example.hexagonal.car
 
 @JvmInline
 value class LicensePlateNumber(
-    private val value: String,
+    val value: String,
 ) {
     init {
         require(SPEC_LICENCE_PLATE_NUMBER.matches(value)) {
