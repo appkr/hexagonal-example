@@ -3,7 +3,9 @@ apply(plugin = "io.spring.dependency-management")
 apply(plugin = "com.google.cloud.tools.jib")
 
 dependencies {
+    implementation(project(":car:application:service"))
     implementation(project(":car:adapter-rest"))
+    implementation(project(":car:adapter-jpa"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
