@@ -2,6 +2,7 @@ package com.example.hexagonal.car
 
 @JvmInline
 value class LicensePlateNumber(
+    // 동일성 비교를 위한 공백 정규화는 생략한다
     val value: String,
 ) {
     init {

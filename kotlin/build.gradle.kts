@@ -13,8 +13,10 @@ plugins {
 }
 
 ktlint {
-    // Class org.jetbrains.kotlin.lexer.KtTokens does not have member field 'org.jetbrains.kotlin.lexer.KtModifierKeywordToken HEADER_KEYWORD'
+    // Class org.jetbrains.kotlin.lexer.KtTokens does not have member field
+    //  'org.jetbrains.kotlin.lexer.KtModifierKeywordToken HEADER_KEYWORD'
     // gradle plugin이 사용하는 ktlint 엔진 버전이 kotlin 2.x 버전과 호환되지 않아 ktlint 엔진 버전을 직접 선언함
+    // kotlin 버전도 2.0.0 으로 고정
     version.set("1.3.1")
 }
 
@@ -54,7 +56,7 @@ subprojects {
         testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
         testImplementation("io.kotest:kotest-assertions-core:5.9.1")
         testImplementation("io.kotest:kotest-framework-datatest:5.9.1")
-        testImplementation("io.kotest:kotest-extensions-spring:4.4.3")
+        testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
         testImplementation("io.mockk:mockk:1.14.2")
     }
 

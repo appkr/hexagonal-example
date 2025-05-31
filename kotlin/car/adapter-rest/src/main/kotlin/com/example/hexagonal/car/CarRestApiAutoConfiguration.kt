@@ -5,4 +5,4 @@ import org.springframework.context.annotation.Import
 
 @AutoConfiguration
 @Import(CarRestApi::class)
-class CarRestApiAutoConfiguration
+open class CarRestApiAutoConfiguration
