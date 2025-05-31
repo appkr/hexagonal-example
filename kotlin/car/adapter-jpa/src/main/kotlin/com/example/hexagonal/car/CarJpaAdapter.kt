@@ -2,7 +2,7 @@ package com.example.hexagonal.car
 
 class CarJpaAdapter(
     private val repository: CarJpaRepository,
-) : CarSavePort, CardLoadPort {
+) : CarSavePort, CarLoadPort {
     override fun saveAll(cars: Collection<CarProperties>): Collection<CarModel> {
         return cars
             .map { CarJpaEntity(it) }

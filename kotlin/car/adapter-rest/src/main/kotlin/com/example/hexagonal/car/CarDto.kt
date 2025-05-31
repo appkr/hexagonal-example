@@ -5,11 +5,14 @@ import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
 data class CarDto(
-    @Schema(readOnly = true)
-    val carId: Long,
+    @field:Schema(readOnly = true)
+    val carId: Long?,
+    @field:Schema(description = "자동차 번호")
     val licensePlateNumber: String,
-    val createdAt: OffsetDateTime,
-    val updatedAt: OffsetDateTime,
+    @field:Schema(readOnly = true)
+    val createdAt: OffsetDateTime?,
+    @field:Schema(readOnly = true)
+    val updatedAt: OffsetDateTime?,
 ) {
     constructor(model: CarModel) : this(
         carId = model.identity.value,

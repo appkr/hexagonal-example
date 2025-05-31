@@ -1,7 +1,6 @@
 plugins {
     idea
     java
-    `java-library`
     `jvm-test-suite`
     kotlin("jvm") version "2.0.0"
     kotlin("plugin.spring") version "2.0.0"
@@ -12,16 +11,8 @@ plugins {
     id("com.google.cloud.tools.jib") version "3.4.5" apply false
 }
 
-ktlint {
-    // Class org.jetbrains.kotlin.lexer.KtTokens does not have member field
-    //  'org.jetbrains.kotlin.lexer.KtModifierKeywordToken HEADER_KEYWORD'
-    // gradle plugin이 사용하는 ktlint 엔진 버전이 kotlin 2.x 버전과 호환되지 않아 ktlint 엔진 버전을 직접 선언함
-    // kotlin 버전도 2.0.0 으로 고정
-    version.set("1.3.1")
-}
-
 allprojects {
-    group = "com.example"
+    group = "com.example.hexagonal"
     version = "0.0.1-SNAPSHOT"
 
     repositories {
@@ -36,7 +27,6 @@ allprojects {
         toolchain {
             languageVersion = JavaLanguageVersion.of(21)
         }
-        withSourcesJar()
     }
 
     kotlin {

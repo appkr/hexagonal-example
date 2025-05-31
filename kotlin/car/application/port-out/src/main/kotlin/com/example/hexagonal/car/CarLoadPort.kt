@@ -1,5 +1,5 @@
 package com.example.hexagonal.car
 
-interface CardLoadPort {
+interface CarLoadPort {
     fun findByLicensePlateNumberOrNull(licensePlateNumber: LicensePlateNumber): CarModel?
 }
