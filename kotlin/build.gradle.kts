@@ -21,7 +21,6 @@ allprojects {
 
     apply(plugin = "java")
     apply(plugin = "kotlin")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     java {
         toolchain {
@@ -37,6 +36,8 @@ allprojects {
 }
 
 subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
     dependencies {
         implementation(kotlin("reflect"))
         implementation(kotlin("stdlib"))
