@@ -1,0 +1,81 @@
+@startuml
+
+hexagon an-application-instance {
+    frame parking-lot {
+        package adapter-rest {
+            class ParkingLotRestApi <<com.example.hexagonal.parkinglot>>
+        }
+
+        package application {
+            package port-in {
+                interface ParkingLotCommandUse <<com.example.hexagonal.parkinglot>> {
+                    + checkIn(): ParkingEvent
+                    + checkOut(): ParkingEvent
+                }
+            }
+
+            package service {
+                class ParkingLotCommandService <<com.example.hexagonal.parkinglot>>
+            }
+
+            package domain {
+                entity ParkingLot <<com.example.hexagonal.parkinglot>>
+            }
+
+            ParkingLotRestApi --> ParkingLotCommandUse: injects
+            ParkingLotCommandService -up-|> ParkingLotCommandUse: implements
+            ParkingLotCommandService --> ParkingLot: uses
+        }
+    }
+
+    frame car {
+        package adapter-rest {
+            class CarRestApi <<com.example.hexagonal.car>>
+        }
+
+        package application {
+            package port-in {
+                interface CarCommandUseCase <<com.example.hexagonal.car>> {
+                    + bulkCreateCar(): Collection<CarModel>
+                }
+            }
+
+            package service {
+                class CarService <<com.example.hexagonal.car>>
+            }
+
+            package port-out {
+                interface CarSavePort <<com.example.hexagonal.car>> {
+                    + saveAll(): Collection<CarModel>
+                }
+            }
+        }
+
+        package adapter-jpa {
+            class CarJpaAdapter <<com.example.hexagonal.car>>
+            interface CarJpaRepository <<com.example.hexagonal.car>>
+
+            CarJpaAdapter --> CarJpaRepository: injects
+        }
+
+        CarRestApi --> CarCommandUseCase: injects
+        CarService -up-|> CarCommandUseCase: implements
+        CarService --> CarSavePort: injects
+        CarJpaAdapter -up-|> CarSavePort: implements
+    }
+
+    frame bootstrap {
+        class HexagonalExampleApiApplication
+
+        note "adapter, service 모듈을 품고 \n스프링 컨텍스트에 등록하고 \n런타임에 필요한 인터페이스의 구현체를 제공한다" as N1
+    }
+
+    ParkingLotCommandService --> CarCommandUseCase: depends on
+'    HexagonalExampleApiApplication -up-> ParkingLotRestApi
+'    HexagonalExampleApiApplication -up-> ParkingLotCommandService
+'    HexagonalExampleApiApplication -up-> CarRestApi
+'    HexagonalExampleApiApplication -up-> CarService
+'    HexagonalExampleApiApplication -up-> CarJpaAdapter
+}
+
+@enduml
