@@ -1,0 +1,23 @@
+package com.example.hexagonal.parkinglot
+
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
+
+data class ParkingTicket(
+    val carId: Long,
+    val licensePlateNumber: String,
+    val enteredAt: OffsetDateTime,
+    val freeMinutes: Duration,
+    val unitMinutes: Duration,
+    val feePerUnit: Money,
+) {
+    constructor(parkingEvent: ParkingEvent) : this(
+        carId = parkingEvent.car.identity.value,
+        licensePlateNumber = parkingEvent.car.licencePlateNumber.value,
+        enteredAt = OffsetDateTime.ofInstant(parkingEvent.enteredAt, ZoneOffset.UTC),
+        freeMinutes = parkingEvent.feePolicy.freeMinutes,
+        unitMinutes = parkingEvent.feePolicy.unitMinutes,
+        feePerUnit = parkingEvent.feePolicy.feePerUnit,
+    )
+}

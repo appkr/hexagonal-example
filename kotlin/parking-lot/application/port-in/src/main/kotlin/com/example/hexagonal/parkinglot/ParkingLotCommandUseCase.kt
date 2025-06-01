@@ -6,6 +6,8 @@ import java.time.Instant
 interface ParkingLotCommandUseCase {
     /**
      * 주차 티켓을 발권한다
+     *
+     * @throws CarNotFoundException
      */
     fun checkIn(
         licensePlateNumber: LicensePlateNumber,
