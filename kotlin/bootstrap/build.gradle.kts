@@ -7,6 +7,9 @@ dependencies {
     implementation(project(":car:adapter-rest"))
     implementation(project(":car:adapter-jpa"))
 
+    implementation(project(":parking-lot:application:service"))
+    implementation(project(":parking-lot:adapter-rest"))
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")

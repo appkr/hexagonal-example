@@ -12,6 +12,7 @@ include(":car:adapter-jpa")
 
 include(":parking-lot:application:domain")
 include(":parking-lot:application:port-in")
+include(":parking-lot:application:service")
 include(":parking-lot:adapter-rest")
 
 // 순환참조를 피하기 위해서 별도의 이름을 부여한다
