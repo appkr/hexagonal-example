@@ -17,7 +17,7 @@ class ParkingLotRestApi(
     private val queryUseCase: ParkingLotQueryUseCase,
     private val clock: Clock,
 ) {
-    @Operation
+    @Operation(tags = ["ParkingLots"], summary = "입차 및 주차권 발급")
     @PostMapping("/check-in")
     fun checkIn(
         @Valid @RequestBody request: CheckInRequest,
@@ -27,7 +27,7 @@ class ParkingLotRestApi(
             .let { ParkingTicket(it) }
     }
 
-    @Operation
+    @Operation(tags = ["ParkingLots"], summary = "출차 정산 및 영수증 발급")
     @PostMapping("/check-out")
     fun checkIn(
         @Valid @RequestBody request: CheckOutRequest,

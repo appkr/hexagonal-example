@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Import
 @AutoConfiguration
 @Import(
     ParkingLotCommandService::class,
+    ParkingLotQueryService::class,
 )
 open class ParkingLotServiceAutoConfiguration {
     @Bean

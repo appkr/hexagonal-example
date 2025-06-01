@@ -17,7 +17,7 @@ class CarRestApi(
     private val commandUseCase: CarCommandUseCase,
     private val queryUseCase: CarQueryUseCase,
 ) {
-    @Operation
+    @Operation(tags = ["Cars"], summary = "차량 등록")
     @PostMapping
     fun bulkCreateCars(
         @Valid @RequestBody request: Collection<CarDto>,
@@ -29,7 +29,7 @@ class CarRestApi(
             .map { CarDto(it) }
     }
 
-    @Operation
+    @Operation(tags = ["Cars"], summary = "차량 조회")
     @GetMapping
     fun getCar(
         @RequestParam licensePlateNumber: String,
