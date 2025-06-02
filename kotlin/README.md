@@ -39,8 +39,11 @@
 ## 🚀 실행 방법
 
 ```bash
-./gradlew clean build
-./gradlew bootRun
+./gradlew clean test
+```
+
+```bash
+./gradlew :bootstrap:bootRun
 # http://localhost:8080/swagger-ui/index.html Swagger UI로 api 테스트
 ```
 
