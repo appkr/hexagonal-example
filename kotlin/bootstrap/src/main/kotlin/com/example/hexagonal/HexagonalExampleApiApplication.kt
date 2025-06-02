@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Bean
 import java.time.Clock
 
 @SpringBootApplication
-open class HexagonalApplication {
+open class HexagonalExampleApiApplication {
     @Bean
     open fun clock(): Clock = Clock.systemUTC()
 }
 
 fun main(args: Array<String>) {
-    runApplication<HexagonalApplication>(*args)
+    runApplication<HexagonalExampleApiApplication>(*args)
 }

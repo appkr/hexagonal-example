@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.Instant
+import java.util.UUID
 
 @Entity
 @Table(name = "cars")
@@ -18,6 +19,7 @@ class CarJpaEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
+    val carId: UUID = UUID.randomUUID(),
     val licensePlateNumber: String = "",
     @CreatedDate
     val createdAt: Instant = Instant.now(),
@@ -30,7 +32,7 @@ class CarJpaEntity(
 
     fun toModel() =
         CarEntity(
-            identity = CarKey(id),
+            identity = CarKey(carId),
             licencePlateNumber = LicensePlateNumber(licensePlateNumber),
             createdAt = createdAt,
             updatedAt = updatedAt,
