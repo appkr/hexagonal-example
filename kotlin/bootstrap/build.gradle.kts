@@ -2,6 +2,10 @@ apply(plugin = "org.springframework.boot")
 apply(plugin = "io.spring.dependency-management")
 apply(plugin = "com.google.cloud.tools.jib")
 
+tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
+    mainClass.set("com.example.hexagonal.HexagonalExampleApiApplicationKt")
+}
+
 dependencies {
     implementation(project(":car:application:service"))
     implementation(project(":car:adapter-rest"))
