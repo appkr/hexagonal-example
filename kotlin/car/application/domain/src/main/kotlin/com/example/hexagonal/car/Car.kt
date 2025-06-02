@@ -1,6 +1,7 @@
 package com.example.hexagonal.car
 
 import java.time.Instant
+import java.util.UUID
 
 interface CarProperties {
     val licencePlateNumber: LicensePlateNumber
@@ -8,7 +9,7 @@ interface CarProperties {
 }
 
 interface CarIdentity {
-    val value: Long
+    val value: UUID
 }
 
 interface CarModel : CarProperties {
@@ -22,7 +23,7 @@ data class CarData(
 ) : CarProperties
 
 data class CarKey(
-    override val value: Long,
+    override val value: UUID,
 ) : CarIdentity
 
 data class CarEntity(

@@ -10,6 +10,7 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import java.time.Instant
 import java.time.temporal.ChronoUnit
+import java.util.UUID
 
 class ParkingLotTest : DescribeSpec() {
     init {
@@ -26,7 +27,7 @@ class ParkingLotTest : DescribeSpec() {
                 val sut = ParkingLot()
                 val aCar =
                     CarEntity(
-                        identity = CarKey(0L),
+                        identity = CarKey(UUID.randomUUID()),
                         licencePlateNumber = LicensePlateNumber("서울 111 가 1111"),
                         createdAt = Instant.EPOCH,
                         updatedAt = Instant.EPOCH,

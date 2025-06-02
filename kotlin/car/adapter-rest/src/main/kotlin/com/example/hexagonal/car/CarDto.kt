@@ -6,7 +6,7 @@ import java.time.ZoneOffset
 
 data class CarDto(
     @field:Schema(readOnly = true)
-    val carId: Long?,
+    val carId: String?,
     @field:Schema(description = "자동차 번호")
     val licensePlateNumber: String,
     @field:Schema(readOnly = true)
@@ -15,7 +15,7 @@ data class CarDto(
     val updatedAt: OffsetDateTime?,
 ) {
     constructor(model: CarModel) : this(
-        carId = model.identity.value,
+        carId = model.identity.value.toString(),
         licensePlateNumber = model.licencePlateNumber.value,
         createdAt = OffsetDateTime.ofInstant(model.createdAt, ZoneOffset.UTC),
         updatedAt = OffsetDateTime.ofInstant(model.updatedAt, ZoneOffset.UTC),
