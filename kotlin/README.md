@@ -12,9 +12,9 @@
 
 ## 🗂️ 프로젝트 구성
 
-```angular2html
+```bash
 .
-├── bootstrap
+├── application-api    # 애플리케이션 부트스트랩
 ├── car                # 차량 도메인
 │   ├── adapter-jpa
 │   ├── adapter-rest   # REST API 어댑터
@@ -38,12 +38,26 @@
 
 ## 🚀 실행 방법
 
+lint
+```bash
+./gradlew ktlintForamt
+```
+
+test
 ```bash
 ./gradlew clean test
 ```
 
+run
 ```bash
-./gradlew :bootstrap:bootRun
+./gradlew :application-api:bootRun
+# http://localhost:8080/swagger-ui/index.html Swagger UI로 api 테스트
+```
+
+docker image build & run
+```bash
+./gradlew :application-api:jibDockerBuild
+docker run -it --rm -p 8080:8080 application-api:0.0.1-SNAPSHOT
 # http://localhost:8080/swagger-ui/index.html Swagger UI로 api 테스트
 ```
 

@@ -1,9 +1,22 @@
+import com.google.cloud.tools.jib.gradle.JibExtension
+
 apply(plugin = "org.springframework.boot")
 apply(plugin = "io.spring.dependency-management")
 apply(plugin = "com.google.cloud.tools.jib")
 
 tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
     mainClass.set("com.example.hexagonal.HexagonalExampleApiApplicationKt")
+}
+
+configure<JibExtension> {
+    from {
+        image = "amazoncorretto:21.0.7"
+    }
+
+    container {
+        creationTime.set("USE_CURRENT_TIMESTAMP")
+        ports = listOf("8080")
+    }
 }
 
 dependencies {

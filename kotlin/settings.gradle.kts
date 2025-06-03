@@ -1,6 +1,6 @@
 rootProject.name = "hexagonal-example"
 
-include(":bootstrap")
+include(":application-api")
 
 include(":car:application:exception")
 include(":car:application:domain")

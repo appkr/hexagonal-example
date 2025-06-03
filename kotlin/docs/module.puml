@@ -64,10 +64,10 @@ hexagon an-application-instance {
         CarJpaAdapter -up-|> CarSavePort: implements
     }
 
-    frame bootstrap {
+    frame application-api {
         class HexagonalExampleApiApplication
 
-        note "adapter, service 모듈을 품고 \n스프링 컨텍스트에 등록하고 \n런타임에 필요한 인터페이스의 구현체를 제공한다" as N1
+        note "adapter, service 모듈의 Bean 들을 \n스프링 컨텍스트에 등록하고 \n런타임에 필요한 인터페이스의 구현체를 제공한다" as N1
     }
 
     ParkingLotCommandService --> CarCommandUseCase: depends on

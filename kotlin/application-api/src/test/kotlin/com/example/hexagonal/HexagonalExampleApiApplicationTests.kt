@@ -10,7 +10,7 @@ import org.springframework.test.context.TestConstructor
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-class HexagonalApplicationTests(private val restTemplate: TestRestTemplate) {
+class HexagonalExampleApiApplicationTests(private val restTemplate: TestRestTemplate) {
     @Test
     fun test() {
         restTemplate.getForEntity<Any>("/actuator/health/liveness").also {
