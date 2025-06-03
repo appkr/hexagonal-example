@@ -1,6 +1,6 @@
 spring:
   application:
-    name: hexagonal-example-api
+    name: hexagonal-example-cron
 
   datasource:
     driver-class-name: org.h2.Driver
@@ -19,13 +19,10 @@ spring:
       ddl-auto: none
     show-sql: true
 
+  # cron 만 부트하는 예제 시나리오를 위한 스키마 선언; application-cron에선 스키마를 관리하지 않아야 한다
   sql:
     init:
       schema-locations: classpath*:schema.sql
-
-  h2:
-    console:
-      enabled: true
 
 management:
   endpoint:
