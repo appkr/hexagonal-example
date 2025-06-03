@@ -25,7 +25,7 @@ open class ParkingLotCommandService(
                 carCommandUseCase.bulkCreateCar(listOf(CarData(licensePlateNumber))).first()
             }
 
-        // ParkingEvent에 대한 Persist는 생략한다
+        // ParkingEvent에 대한 중복 입차 검증, Persist 등 세부 구현은 생략한다
         return parkingLot.enter(car, DefaultParkingFeePolicy(), enteredAt ?: Instant.now())
     }
 

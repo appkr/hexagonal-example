@@ -9,10 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling
 import java.time.Clock
 
 @SpringBootApplication(
-    exclude = [
-        ,
-        // cron 앱 수행에 불필요하여 제외할 AutoConfiguration을 선언한다
-    ],
+    // cron 앱 수행에 불필요하여 제외할 AutoConfiguration을 선언한다
+    exclude = [],
 )
 @EnableScheduling
 @Import(ParkingLotSettlementScheduler::class)
